@@ -6,9 +6,11 @@
 /*   By: hyewonkim <hyewonkim@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 18:30:00 by hyewkim           #+#    #+#             */
-/*   Updated: 2022/03/08 23:13:40 by hyewonkim        ###   ########.fr       */
+/*   Updated: 2022/03/08 23:28:22 by hyewonkim        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+
 
 #ifndef SO_LONG_H
 #define SO_LONG_H
@@ -45,9 +47,9 @@ typedef struct s_map
 /*
  * typedef struct s_object
  * {
- *		int cnt;
- *		int[2] position;
- *		int? status
+ *      int cnt;
+ *      int[2] position;
+ *      int? status
  * }t_object
  * main -> t_object player / t_object collect ...
  * 이런
