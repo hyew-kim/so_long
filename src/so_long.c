@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyewkim <hyewkim@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hyewonkim <hyewonkim@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 18:29:22 by hyewkim           #+#    #+#             */
-/*   Updated: 2021/10/12 18:35:27 by hyewkim          ###   ########.fr       */
+/*   Updated: 2022/03/09 01:26:03 by hyewonkim        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int main(int argc, char *argv[])
 			break;
 	}
 	free(line);
+	close(fd);
 	if (gnl_return == ERROR)
 		perror("Error: map reading\n");
 	check_object_count(&map);
