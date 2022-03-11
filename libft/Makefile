@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hyewkim <hyewkim@student.42seoul.kr>       +#+  +:+       +#+         #
+#    By: hyewonkim <hyewonkim@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/10 18:54:39 by hyewkim           #+#    #+#              #
-#    Updated: 2021/06/10 18:54:53 by hyewkim          ###   ########.fr        #
+#    Updated: 2022/03/11 23:07:18 by hyewonkim        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,8 @@ FUNC =	ft_memset\
 		ft_putstr_fd \
 		ft_putendl_fd \
 		ft_putnbr_fd \
-
+		get_next_line \
+	
 FUNC_BONUS = ft_lstnew\
 	ft_lstadd_front\
 	ft_lstsize\
@@ -64,7 +65,6 @@ FUNC_BONUS = ft_lstnew\
 
 SRCS = $(addsuffix .c, $(FUNC))
 SRCS_BONUS = $(addsuffix .c, $(FUNC_BONUS))
-
 OBJS = $(addsuffix .o, $(FUNC))
 OBJS_BONUS = $(addsuffix .o, $(FUNC_BONUS))
 

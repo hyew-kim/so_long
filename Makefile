@@ -1,50 +1,41 @@
-SRCS = so_long.c mms_func.c utils.c valid.c map.c mlx_func.c
-OBJS = ${SRCS:.c=.o}
+CC = gcc
+CFLAGS = -Wextra -Wall -Werror
+LFLAGS = -L. -lft
+MLX = -L ./mlx -lmlx -framework OpenGL -framework Appkit
+AR = ar rcs
+
 NAME = so_long
-cc = gcc
-RM = rm -f
 
-B_SRCS = so_long_bonus.c \
-		mms_func_bonus.c \
-		utils_bonus.c \
-		valid_bonus.c \
-		map_bonus.c \
-		mlx_func_bonus.c \
-		read_img_bonus.c \
-		font_bonus.c
-B_OBJS = ${B_SRCS:.c=.o}
+#P_SRC = so_long.c\
+		map_check.c\
+		mlx_main.c\
+		one_wall_line.c\
+		print_image.c\
+		so_long_main.c\
+		key_press.c
+SRC = *.c
+OBJS = $(SRC:.c=.o)
 
-MLX 	= opengl/libmlx.a
-MLX_B_F	= mlx/libmlxb.dylib
-MLX_B	= libmlxb.dylib
+.c.o:
+	$(CC) $(CFLAGS) -c $< -o $(<:.c=.o) -I.
 
-MCHECK = -g3 -fsanitize=address
-CFLAGS = -Wall -Wextra -Werror
-LIBS = -L ./opengl -lmlx -framework OpenGL -framework Appkit
-MMS = -L ./mlx -lmlxb -framework OpenGL -framework Appkit
-LIBFT = -L ./libft -lft
+$(NAME): $(OBJS)
+	make -C libft/ bonus
+	cp libft/libft.a ./
+	make -C ./mlx
+	$(CC) $(CFLAGS) $(LFLAGS) $(MLX) $^ -o $@ 
 
-all : ${NAME}
-$(NAME) : ${OBJS} 
-	@${MAKE} -C ./libft bonus
-	@${MAKE} -C ./mlx 
-	@${MAKE} -C ./opengl 
-	${CC} ${CFLAGS} ${SRCS} ${LIBS} ${MMS} ${LIBFT} -o ${NAME}
-	cp ./${MLX_B_F} ./${MLX_B}
-bonus : ${B_OBJS}
-	@${MAKE} -C ./libft bonus
-	@${MAKE} -C ./mlx 
-	@${MAKE} -C ./opengl 
-	${CC} ${CFLAGS} ${B_SRCS} ${LIBS} ${MMS} ${LIBFT} -o ${NAME}
-	cp ./${MLX_B_F} ./${MLX_B}
-.c.o :
-	${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
-clean :
-	@${MAKE} -C ./libft clean
-	@${MAKE} -C ./mlx clean
-	@${MAKE} -C ./opengl clean
-	${RM} ${OBJS} ${B_OBJS}
-fclean : clean
-	@${MAKE} -C ./libft fclean
-	${RM} ${NAME} ${B_NAME} ${MLX} ${MLX_B} ${MLX_B_F}
-re : fclean all
+all: $(NAME)
+
+fclean: clean
+	rm -rf $(NAME)
+	rm -rf libft.a
+	make fclean -C libft/
+	make clean -C mlx/
+
+clean:
+	rm -rf $(OBJS)
+	make clean -C libft/
+	make clean -C mlx/
+
+re: fclean all

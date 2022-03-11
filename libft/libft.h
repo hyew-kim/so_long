@@ -3,17 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyewkim <hyewkim@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hyewonkim <hyewonkim@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 17:53:31 by hyewkim           #+#    #+#             */
-/*   Updated: 2021/10/12 18:30:28 by hyewkim          ###   ########.fr       */
+/*   Updated: 2022/03/11 23:08:10 by hyewonkim        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
+
+/*macro*/
+# define ERROR -1
+# define SUCCUESS 1
+# define E_O_F 0
+# define OPEN_MAX 255
+#ifndef BUFFER_SIZE
+# define BUFFER_SIZE 32
+#endif
+
+/*header*/
 # include <unistd.h>
 # include <stdlib.h>
+
+/*prototype*/
+int					get_next_line(int fd, char **line);
+int					set_backup(char **backup_fd, char *buf);
+int					return_line(char **backup_fd, char **line);
+int					return_line_in_nl(char **backup_fd, char **line, int idx_nl);
 
 void				*ft_memset(void *dest, int c, size_t n);
 void				ft_bzero(void *str, size_t n);

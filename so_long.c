@@ -6,7 +6,7 @@
 /*   By: hyewonkim <hyewonkim@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 18:29:22 by hyewkim           #+#    #+#             */
-/*   Updated: 2022/03/09 01:26:03 by hyewonkim        ###   ########.fr       */
+/*   Updated: 2022/03/11 23:40:07 by hyewonkim        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,23 @@ int main(int argc, char *argv[])
 	check_input(argc, argv);
 	init(&map);
 	fd = open(argv[1], O_RDONLY);
+	int height = 0;
+	int width = 0;
 	while (1)
 	{
 		line = NULL;
+		gnl_return = 1;
 		gnl_return = get_next_line(fd, &line) > 0;
 		if (gnl_return == SUCCUESS)
+		{
+			width = ft_strlen(line);
+			++height;
 			count_object(line, &map);
+		} 
 		else
 			break;
 	}
+	ft_putnbr_fd(height, 1);
 	free(line);
 	close(fd);
 	if (gnl_return == ERROR)
@@ -62,24 +70,16 @@ void init(t_map *map)
 
 void count_object(char *line, t_map *map)
 {
-	char *ptr;
-
-	ptr = line;
-	while (ptr)
+	int idx = -1;
+	int len = ft_strlen(line);
+	while (++idx < len)
 	{
-		if (ft_strncmp((const char *)ptr, (const char *)"P", 1) == 0)
+		if (line[idx] == 'P')
 			(map->player)++;
-		else if (ft_strncmp((const char *)ptr, (const char *)"C", 1) == 0)
+		else if (line[idx] == 'C')
 			(map->collect)++;
-		else if (ft_strncmp((const char *)ptr, (const char *)"E", 1) == 0)
+		else if (line[idx] == 'E')
 			(map->exit)++;
-		else if (ft_strncmp((const char *)ptr, (const char *)"\n", 1) == 0)
-			(map->wall_coulmn)++;
-		else if (ft_strncmp((const char *)ptr, (const char *)"1", 1) == 0)
-			(map->wall_low)++;
-		else if (ft_strncmp((const char *)ptr, (const char *)"0", 1) == 0)
-			(map->blank)++;
-		ptr++;
 	}
 }
 // 한 줄씩 p, c, e세기, 다 읽어서 최소 개수 만족하는지 확인하기
@@ -89,6 +89,9 @@ void count_object(char *line, t_map *map)
 
 void check_object_count(t_map *map)
 {
+	ft_putnbr_fd(map->player, 1);
+	ft_putnbr_fd(map->exit, 1);
+	ft_putnbr_fd(map->collect, 1);
 	if (map->player < 1 || map->exit < 1 || map->collect < 1)
 	{
 		perror("Error: wrong map\n");

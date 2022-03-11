@@ -6,32 +6,31 @@
 /*   By: hyewonkim <hyewonkim@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 18:30:00 by hyewkim           #+#    #+#             */
-/*   Updated: 2022/03/08 23:28:22 by hyewonkim        ###   ########.fr       */
+/*   Updated: 2022/03/11 22:18:45 by hyewonkim        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 
 #ifndef SO_LONG_H
-#define SO_LONG_H
+# define SO_LONG_H
 
 /*macro*/
-#define ERROR -1
-#define SUCCUESS 1
-#define E_O_F 0
-#define OPEN_MAX 255
-
-#ifndef BUFFER_SIZE
-#define BUFFER_SIZE 32
-#endif
+# define ERROR -1
+# define SUCCUESS 1
+# define E_O_F 0
+# define OPEN_MAX 255
+# define KEY_W 13
+# define KEY_A 0
+# define KEY_S 1
+# define KEY_D 2
+# define KEY_ESC 53
 
 /*include library*/
-#include <stdlib.h>
-#include <unistd.h>
 #include <string.h>
-#include <stdio.h>
 #include <fcntl.h>
-#include "../libft/libft.h"
+#include <stdio.h>
+#include "libft/libft.h"
 
 /*object*/
 typedef struct s_map
@@ -57,9 +56,6 @@ typedef struct s_map
 
 /*prototype*/
 void check_input(int argc, char *argv[]);
-int get_next_line(int fd, char **line);
-int return_line(char **backup_fd, char **line);
-int return_line_in_nl(char **backup_fd, char **line, int idx_nl);
 int set_backup(char **backup_fd, char *buf);
 void count_object(char *line, t_map *map);
 void check_object_count(t_map *map);
