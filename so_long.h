@@ -6,7 +6,7 @@
 /*   By: hyewonkim <hyewonkim@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 18:30:00 by hyewkim           #+#    #+#             */
-/*   Updated: 2022/03/11 22:18:45 by hyewonkim        ###   ########.fr       */
+/*   Updated: 2022/03/17 02:02:28 by hyewonkim        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,27 +38,18 @@ typedef struct s_map
 	int player;
 	int collect;
 	int blank;
-	int wall_low;
-	int wall_coulmn;
+	int mapWidth;
+	int mapHeight;
 	int exit;
+	char **map;
 } t_map;
 
-/*
- * typedef struct s_object
- * {
- *      int cnt;
- *      int[2] position;
- *      int? status
- * }t_object
- * main -> t_object player / t_object collect ...
- * 이런
- */
-
 /*prototype*/
-void check_input(int argc, char *argv[]);
-int set_backup(char **backup_fd, char *buf);
-void count_object(char *line, t_map *map);
-void check_object_count(t_map *map);
+void printError(const char *errorMessage);
+void closeWithError (int fd, const char *errorMessage);
+void checkInput(int argc, char *argv[]);
+int checkLine(char *line, t_map *map);
+int checkMap(t_map *map);
 void init(t_map *map);
 
 #endif

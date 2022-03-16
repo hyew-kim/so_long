@@ -6,7 +6,7 @@
 /*   By: hyewonkim <hyewonkim@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/24 17:30:47 by hyewkim           #+#    #+#             */
-/*   Updated: 2022/03/11 22:14:16 by hyewonkim        ###   ########.fr       */
+/*   Updated: 2022/03/17 01:49:18 by hyewonkim        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int set_backup(char **backup_fd, char *buf)
 	char	*tmp;
 
 	if (*backup_fd)
-		tmp = ft_strjoin((const char *)*backup_fd, (const char *)buf);
+		tmp = ft_strjoin(*backup_fd, buf);
 	else
 		tmp = ft_strdup((const char *)buf);
 	if (tmp == NULL)

@@ -1,5 +1,6 @@
 CC = gcc
-CFLAGS = -Wextra -Wall -Werror
+CFLAGS = -g
+#-Wextra -Wall -Werror
 LFLAGS = -L. -lft
 MLX = -L ./mlx -lmlx -framework OpenGL -framework Appkit
 AR = ar rcs
