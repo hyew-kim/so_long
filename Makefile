@@ -1,6 +1,7 @@
 CC = gcc
 CFLAGS = -g
 #-Wextra -Wall -Werror
+# -L : 라이브러리 경로 지정
 LFLAGS = -L. -lft
 MLX = -L ./mlx -lmlx -framework OpenGL -framework Appkit
 AR = ar rcs
@@ -14,7 +15,7 @@ NAME = so_long
 		print_image.c\
 		so_long_main.c\
 		key_press.c
-SRC = *.c
+SRC = so_long.c map.c mlx_func.c
 OBJS = $(SRC:.c=.o)
 
 .c.o:
