@@ -15,6 +15,7 @@ void init(t_map *ptr)
 	ptr->mapHeight = 0;
 	ptr->exit = 0;
 	ptr->map = NULL;
+	ptr->move = 0;
 	return;
 }
 

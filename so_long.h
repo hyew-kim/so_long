@@ -6,7 +6,7 @@
 /*   By: hyewonkim <hyewonkim@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 18:30:00 by hyewkim           #+#    #+#             */
-/*   Updated: 2022/03/18 01:14:36 by hyewonkim        ###   ########.fr       */
+/*   Updated: 2022/03/21 03:52:03 by hyewonkim        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # define KEY_D 2
 # define KEY_ESC 53
 # define IMG_SIZE 80
+# define X_EVENT_X_BUTTON 17
 /*include library*/
 #include <string.h>
 #include <fcntl.h>
@@ -43,6 +44,7 @@ typedef struct s_map
 	char **map;
 	int x;
 	int y;
+	int move;
 	void *mlx;
 	void *win;
 	void *playerImg;
@@ -60,7 +62,10 @@ int checkLine(char *line, t_map *map);
 int checkMap(t_map *map);
 void init(t_map *map);
 void mlx_main(t_map *ptr);
-void putImage(t_map *ptr);
+void move(t_map *ptr, int x,int y);
+int handleKeyPress(int keycode, t_map *ptr);
+int handleClick(void);
+int putImage(t_map *ptr);
 void putObject(t_map *ptr, int i, int j);
 
 #endif

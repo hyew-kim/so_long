@@ -6,7 +6,7 @@
 /*   By: hyewonkim <hyewonkim@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 18:29:22 by hyewkim           #+#    #+#             */
-/*   Updated: 2022/03/18 01:14:26 by hyewonkim        ###   ########.fr       */
+/*   Updated: 2022/03/21 03:53:16 by hyewonkim        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,7 @@ int main(int argc, char *argv[])
 }
 void printError(char *errorMessage)
 {
-	//perror(errorMessage);
-	ft_putstr_fd(errorMessage, 1);
+	ft_putstr_fd(errorMessage, 2);
 	exit(EXIT_FAILURE);
 }
 void closeWithError (int fd, char *errorMessage)
