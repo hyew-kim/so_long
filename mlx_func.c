@@ -13,8 +13,8 @@ void mlx_main(t_map *ptr)
     ptr->wallImg = mlx_xpm_file_to_image(ptr->mlx, "images/box01.xpm", &w, &h);
     ptr->bgImg = mlx_xpm_file_to_image(ptr->mlx, "images/background.xpm", &w, &h);
     mlx_loop_hook(ptr->mlx, putImage, ptr);
-    mlx_key_hook(ptr->win, &handleKeyPress, ptr);
-    mlx_hook(ptr->win, X_EVENT_X_BUTTON, 0, &handleClick, NULL);
+    mlx_hook(ptr->win, ON_KEYDOWN , 0, &handleKeyPress, ptr);
+    mlx_hook(ptr->win, ON_DESTORY, 0, &handleClick, NULL);
     mlx_loop(ptr->mlx);
 }
 void move(t_map *ptr, int x,int y)
@@ -62,20 +62,18 @@ int putImage(t_map *ptr)
     int j;
 
     mlx_clear_window(ptr->mlx, ptr->win);
-    i = 0;
-    while (i < ptr->mapHeight)
+    i = -1;
+    while (++i < ptr->mapHeight)
     {
-        j = 0;
-        while (j < ptr->mapWidth)
+        j = -1;
+        while (++j < ptr->mapWidth)
         {
             if(ptr->map[i][j])
                 putObject(ptr, i, j);
             if (i == ptr->x && j == ptr->y)
             mlx_put_image_to_window(ptr->mlx, ptr->win, \
             ptr->playerImg, j * IMG_SIZE, i * IMG_SIZE);
-            ++j;
         }
-        ++i;
     }
     return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: hyewonkim <hyewonkim@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 18:30:00 by hyewkim           #+#    #+#             */
-/*   Updated: 2022/03/21 03:52:03 by hyewonkim        ###   ########.fr       */
+/*   Updated: 2022/03/21 17:41:48 by hyewonkim        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@
 # define KEY_D 2
 # define KEY_ESC 53
 # define IMG_SIZE 80
-# define X_EVENT_X_BUTTON 17
+# define ON_DESTORY 17
+# define ON_KEYDOWN 2
 /*include library*/
 #include <string.h>
 #include <fcntl.h>
@@ -55,6 +56,7 @@ typedef struct s_map
 } t_map;
 
 /*prototype*/
+int readMap(t_map *ptr, int fd);
 void printError(char *errorMessage);
 void closeWithError (int fd, char *errorMessage);
 void checkInput(int argc, char *argv[]);

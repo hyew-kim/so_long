@@ -1,22 +1,34 @@
 #include "so_long.h"
 
-void checkInput(int argc, char *argv[])
+int readMap(t_map *ptr, int fd)
 {
-	if (argc < 2 || ft_strnstr((const char *)argv[1], ".ber", ft_strlen((const char *)argv[1])) == NULL)
-		printError("Wrong input\n");
-	return;
-}
+	int		gnl_return;
+	char	*mapLine;
+	char	*line;
 
-void init(t_map *ptr)
-{
-	ptr->player = 0;
-	ptr->collect = 0;
-	ptr->mapWidth = 0;
-	ptr->mapHeight = 0;
-	ptr->exit = 0;
-	ptr->map = NULL;
-	ptr->move = 0;
-	return;
+	line = NULL;
+	mapLine = NULL;
+	while (1)
+	{
+		gnl_return = get_next_line(fd, &line);
+		if (gnl_return != SUCCUESS)
+			break;
+		if (checkLine(line, &ptr))
+		{	
+			printf("%s\n", line);
+			closeWithError(fd, "Wrong map2\n");
+		}
+		line = ft_strjoin(line, "\n");
+		mapLine = ft_strjoin(mapLine, line);
+		free(line);
+		line = NULL;
+	}
+	if (gnl_return == ERROR)
+		return (1);
+	close(fd);
+	ptr->map = ft_split(mapLine, '\n');
+	free(mapLine);
+	return (0);
 }
 
 int checkLine(char *line, t_map *ptr)
@@ -32,7 +44,11 @@ int checkLine(char *line, t_map *ptr)
 		if (ft_strchr("01CEP", (int)line[idx]) < 0)
 			return (1);
 		if (line[idx] == 'P')
+		{
 			(ptr->player)++;
+			ptr->x = ptr->mapHeight;
+			ptr->y = idx;
+		}
 		else if (line[idx] == 'C')
 			(ptr->collect)++;
 		else if (line[idx] == 'E')
@@ -48,17 +64,12 @@ int checkMap(t_map *ptr)
 
 	if (!ptr->map || ptr->player != 1 || ptr->exit < 1 || ptr->collect < 1)
 		return (1);
-	i = 0;
-	while (i < ptr->mapHeight)
+	i = -1;
+	while (++i < ptr->mapHeight)
 	{
-		j = 0;
-		while (j < ptr->mapWidth)
+		j = -1;
+		while (++j < ptr->mapWidth)
 		{
-			if (ptr->map[i][j] == 'P')
-			{
-				ptr->x = i;
-				ptr->y = j;
-			}
 			if (i == 0 || i == ptr->mapHeight - 1)
 			{
 				if (ptr->map[i][j] != '1')
@@ -69,9 +80,7 @@ int checkMap(t_map *ptr)
 				if (ptr->map[i][j] != '1')
 					return (1);
 			}
-			++j;
 		}
-		++i;
 	}
 	return (0);
 }
