@@ -1,6 +1,6 @@
 #include "so_long.h"
 
-int readMap(t_map *ptr, int fd)
+int	readMap(t_map *ptr, int fd)
 {
 	int		gnl_return;
 	char	*mapLine;
@@ -12,9 +12,9 @@ int readMap(t_map *ptr, int fd)
 	{
 		gnl_return = get_next_line(fd, &line);
 		if (gnl_return != SUCCUESS)
-			break;
-		if (checkLine(line, &ptr))
-		{	
+			break ;
+		if (checkLine(line, ptr))
+		{
 			printf("%s\n", line);
 			closeWithError(fd, "Wrong map2\n");
 		}
@@ -31,10 +31,13 @@ int readMap(t_map *ptr, int fd)
 	return (0);
 }
 
-int checkLine(char *line, t_map *ptr)
+int	checkLine(char *line, t_map *ptr)
 {
-	int idx = -1;
-	int len = ft_strlen(line);
+	int	idx = 0;
+	int len = 0;
+
+	idx = -1;
+	len = ft_strlen(line);
 	if (ptr->mapWidth && ptr->mapWidth != len)
 		return (1);
 	ptr->mapWidth = len;
@@ -57,10 +60,10 @@ int checkLine(char *line, t_map *ptr)
 	return (0);
 }
 
-int checkMap(t_map *ptr)
+int	checkMap(t_map *ptr)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	if (!ptr->map || ptr->player != 1 || ptr->exit < 1 || ptr->collect < 1)
 		return (1);
@@ -83,4 +86,25 @@ int checkMap(t_map *ptr)
 		}
 	}
 	return (0);
+}
+
+void	move(t_map *ptr, int x,int y)
+{
+    if (ptr->map[x][y] == '1')
+        return ;
+    (ptr->move)++;
+    ft_putnbr_fd(ptr->move, 1);
+    ft_putchar_fd('\n', 1);
+    if (ptr->map[x][y] == 'C')
+    {
+        (ptr->collect)--;
+        ptr->map[x][y] = '0';
+    }
+    if (ptr->map[x][y] == 'E' && !ptr->collect)
+    {
+        ft_putstr_fd("Game Clear", 1);
+        exit(EXIT_SUCCESS);
+    }
+    ptr-> x = x;
+    ptr-> y = y;
 }

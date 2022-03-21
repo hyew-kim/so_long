@@ -1,10 +1,13 @@
 #include <mlx/mlx.h>
 #include "so_long.h"
 
-void mlx_main(t_map *ptr)
+void	mlx_main(t_map *ptr)
 {
-    int w = IMG_SIZE;
-    int h = IMG_SIZE;
+	int w;
+	int h;
+
+    w = IMG_SIZE;
+    h = IMG_SIZE;
     ptr->mlx = mlx_init();
     ptr->win = mlx_new_window(ptr->mlx, ptr->mapWidth * IMG_SIZE, ptr->mapHeight * IMG_SIZE, "so_long");
     ptr->exitImg = mlx_xpm_file_to_image(ptr->mlx, "images/azazel01.xpm", &w, &h);
@@ -17,27 +20,8 @@ void mlx_main(t_map *ptr)
     mlx_hook(ptr->win, ON_DESTORY, 0, &handleClick, NULL);
     mlx_loop(ptr->mlx);
 }
-void move(t_map *ptr, int x,int y)
-{
-    if (ptr->map[x][y] == '1')
-        return ;
-    (ptr->move)++;
-    ft_putnbr_fd(ptr->move, 1);
-    ft_putchar_fd('\n', 1);
-    if (ptr->map[x][y] == 'C')
-    {
-        (ptr->collect)--;
-        ptr->map[x][y] = '0';
-    }
-    if (ptr->map[x][y] == 'E' && !ptr->collect)
-    {
-        ft_putstr_fd("Game Clear", 1);
-        exit(EXIT_SUCCESS);
-    }
-    ptr-> x = x;
-    ptr-> y = y;
-}
-int handleKeyPress(int keycode, t_map *ptr)
+
+int	handleKeyPress(int keycode, t_map *ptr)
 {
     if (keycode == KEY_ESC)
         exit(EXIT_SUCCESS);
@@ -52,11 +36,12 @@ int handleKeyPress(int keycode, t_map *ptr)
     return (0);
 }
 
-int handleClick(void)
+int	handleClick(void)
 {
     exit(EXIT_SUCCESS);
 }
-int putImage(t_map *ptr)
+
+int	putImage(t_map *ptr)
 {
     int i;
     int j;
@@ -77,7 +62,8 @@ int putImage(t_map *ptr)
     }
     return (0);
 }
-void putObject(t_map *ptr, int i, int j)
+
+void    putObject(t_map *ptr, int i, int j)
 {
     if (ptr->map[i][j] == '1')
         mlx_put_image_to_window(ptr->mlx, ptr->win, \
