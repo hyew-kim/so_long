@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyewonkim <hyewonkim@student.42.fr>        +#+  +:+       +#+        */
+/*   By: hyewkim <hyewkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 17:53:31 by hyewkim           #+#    #+#             */
-/*   Updated: 2022/03/17 01:48:44 by hyewonkim        ###   ########.fr       */
+/*   Updated: 2022/03/30 19:02:33 by hyewkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,10 @@
 /*prototype*/
 int					get_next_line(int fd, char **line);
 int					set_backup(char **backup_fd, char *buf);
+int					check(int fd, char **line, char **buf);
 int					return_line(char **backup_fd, char **line);
 int					return_line_in_nl(char **backup_fd, char **line, int idx_nl);
+int					dup_line(char **tmp, char **backup_fd, char **line);
 
 void				*ft_memset(void *dest, int c, size_t n);
 void				ft_bzero(void *str, size_t n);

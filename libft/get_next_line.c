@@ -3,35 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyewonkim <hyewonkim@student.42.fr>        +#+  +:+       +#+        */
+/*   By: hyewkim <hyewkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/24 17:30:47 by hyewkim           #+#    #+#             */
-/*   Updated: 2022/03/17 01:49:18 by hyewonkim        ###   ########.fr       */
+/*   Updated: 2022/03/22 15:19:24 by hyewkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int get_next_line(int fd, char **line)
+int	get_next_line(int fd, char **line)
 {
-	char	*buf;
+	char		*buf;
 	static char	*backup[OPEN_MAX];
-	int	read_byte;
-	int	idx;
+	int			read_byte;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || fd >= OPEN_MAX || !line)
+	if (check(fd, line, &buf) == ERROR)
 		return (ERROR);
-	if (!(buf = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1))))
-		return (ERROR);
-	while ((read_byte = read(fd, buf, BUFFER_SIZE)) > 0)
+	while (1)
 	{
+		read_byte = read(fd, buf, BUFFER_SIZE);
+		if (read_byte <= 0)
+			break ;
 		buf[read_byte] = 0;
 		if (set_backup(&backup[fd], buf))
 			return (ERROR);
-		if ((idx = ft_strchr((const char *)backup[fd], '\n')) >= 0)
+		if (ft_strchr((const char *)backup[fd], '\n') >= 0)
 		{
 			free(buf);
-			return (return_line_in_nl(&backup[fd], line, idx));
+			return (return_line_in_nl(&backup[fd], line, \
+			 ft_strchr((const char *)backup[fd], '\n')));
 		}
 	}
 	free(buf);
@@ -40,7 +41,17 @@ int get_next_line(int fd, char **line)
 	return (return_line(&backup[fd], line));
 }
 
-int set_backup(char **backup_fd, char *buf)
+int	check(int fd, char **line, char **buf)
+{
+	if (fd < 0 || BUFFER_SIZE <= 0 || fd >= OPEN_MAX || !line)
+		return (ERROR);
+	*buf = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!(*buf))
+		return (ERROR);
+	return (0);
+}
+
+int	set_backup(char **backup_fd, char *buf)
 {
 	char	*tmp;
 
@@ -57,54 +68,4 @@ int set_backup(char **backup_fd, char *buf)
 		free(*backup_fd);
 	*backup_fd = tmp;
 	return (E_O_F);
-}
-
-int return_line(char **backup_fd, char **line)
-{
-	int	idx_nl;
-
-	if (*backup_fd && ((idx_nl = ft_strchr((const char *)*backup_fd, '\n')) >= 0))
-		return (return_line_in_nl(backup_fd, line, idx_nl));
-	else
-	{
-		if (*backup_fd)
-		{
-			*line = *backup_fd;
-			*backup_fd = 0;
-		}
-		else
-		{
-			if (!(*line = ft_strdup((const char *)"")))
-				return (ERROR);
-		}
-		return (E_O_F);
-	}
-}
-
-int return_line_in_nl(char **backup_fd, char **line, int idx_nl)
-{
-	char	*tmp;
-
-	(*backup_fd)[idx_nl] = 0;
-	if (!(tmp = ft_strdup((const char *)*backup_fd)))
-		return (ERROR);
-	*line = tmp;
-	if ((*backup_fd)[idx_nl + 1])
-	{
-		if (!(tmp = ft_strdup((const char *)(*backup_fd + idx_nl + 1))))
-		{
-			free(*backup_fd);
-			*backup_fd = 0;
-			return (ERROR);
-		}
-		free(*backup_fd);
-		*backup_fd = tmp;
-		return (SUCCUESS);
-	}
-	if (*backup_fd)
-	{
-		free(*backup_fd);
-		*backup_fd = 0;
-	}
-	return (SUCCUESS);
 }
