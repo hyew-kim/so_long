@@ -52,6 +52,7 @@ FUNC =	ft_memset\
 		ft_putendl_fd \
 		ft_putnbr_fd \
 		get_next_line \
+		gnl_return_line \
 	
 FUNC_BONUS = ft_lstnew\
 	ft_lstadd_front\
